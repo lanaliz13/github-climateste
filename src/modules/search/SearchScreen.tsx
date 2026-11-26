@@ -67,9 +67,10 @@ export default function SearchScreen({
         </View>
       ) : null}
 
+      //Questão 2
       <FlatList
         data={results}
-        keyExtractor={(item) => item.name}
+        keyExtractor={(item) => String(item.id)} // Adicionei a prop keyExtractor para evitar o aviso de chave única
         renderItem={({ item }) => (
           <CityCard
             city={item}

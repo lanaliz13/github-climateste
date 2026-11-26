@@ -21,8 +21,10 @@ export function useSearchViewModel() {
     }
 
     setLoading(true);
-
-    setTimeout(async () => {
+    //Questão 1
+    //criação de um timer para debouncing, que aguarda 500ms antes
+    // de realizar a busca e clearTimeout para limpar o timer caso o usuário continue digitando
+    const timer = setTimeout(async () => { //para mudar o estado de loading para true, e depois de 500ms, realiza a busca
       try {
         const cities = await searchCities(text);
         setResults(cities);
@@ -34,6 +36,7 @@ export function useSearchViewModel() {
         setLoading(false);
       }
     }, DEBOUNCE_MS);
+    return () => clearTimeout(timer);
   }, [query]);
 
   return { query, setQuery, results, loading, error, hasSearched };

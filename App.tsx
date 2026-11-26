@@ -16,15 +16,16 @@ export default function App() {
   function isFavorite(city: City) {
     return favorites.some((c) => c.id === city.id);
   }
-
+  //Questão 3
   function toggleFavorite(city: City) {
-    const index = favorites.findIndex((c) => c.id === city.id);
-    if (index >= 0) {
-      favorites.splice(index, 1);
-    } else {
-      favorites.push(city);
-    }
-    setFavorites(favorites);
+    setFavorites((prevFavorites) => {
+      const index = prevFavorites.findIndex((c) => c.id === city.id);
+      if(index >= 0) {
+        return prevFavorites.filter((c) => c.id !== city.id);
+      } else {
+        return [...prevFavorites, city];
+      } 
+    });
   }
 
   const showSearch = !selectedCity && tab === "search";

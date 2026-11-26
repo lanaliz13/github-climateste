@@ -68,7 +68,8 @@ export default function ForecastScreen({
 }: Props) {
   const { forecast, loading, error, weekMin, weekMax, retry } =
     useForecastViewModel(city);
-
+  //Questão 4
+  const [unit, setUnit] = useState<TemperatureUnit>("C");//hooks ( useState, useEffect...) devem ficar no começo do componente, antes de qualquer return.
   if (loading) {
     return (
       <View style={styles.center}>
@@ -92,8 +93,6 @@ export default function ForecastScreen({
       </View>
     );
   }
-
-  const [unit, setUnit] = useState<TemperatureUnit>("C");
 
   const info = weatherInfo(forecast.current.weatherCode);
   const place = [city.admin1, city.country].filter(Boolean).join(" · ");
@@ -152,11 +151,15 @@ export default function ForecastScreen({
 
         <View style={styles.unitRow}>
           <Text style={styles.unitLabel}>Mostrar em °F</Text>
+          //Questão 5
           <Switch
             value={unit === "F"}
+            onValueChange={(value) => setUnit(value ? "F" : "C")}
             trackColor={{ false: colors.border, true: colors.primary }}
           />
         </View>
+
+
 
         <Text style={styles.section}>Próximos {forecast.days.length} dias</Text>
         <Text style={styles.muted}>Mínima e máxima de cada dia</Text>
